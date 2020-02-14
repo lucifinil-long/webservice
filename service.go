@@ -17,7 +17,7 @@ type webService struct {
 	handlers map[string]RequestHandlerFunc
 	authMap  map[string]map[string]int
 	server   *http.Server
-	logger   logging.Logger
+	logger   Logger
 }
 
 var (
@@ -36,7 +36,7 @@ func (ws *webService) initAndServe(
 	statics map[string]string,
 	readTimeout, writeTimeout time.Duration,
 	authMap map[string]map[string]int,
-	logger logging.Logger,
+	logger Logger,
 	tlsCertAndKey ...string) {
 	// init member
 	ws.handlers = handlers
@@ -48,7 +48,8 @@ func (ws *webService) initAndServe(
 		if err != nil {
 			panic(err)
 		}
-		ws.logger = logger
+
+		ws.logger = logger.(Logger)
 	}
 
 	// init http server

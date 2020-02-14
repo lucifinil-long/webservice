@@ -3,8 +3,6 @@ package webservice
 import (
 	"net/http"
 	"time"
-
-	"github.com/lucifinil-long/logging"
 )
 
 // RequestHandlerFunc defines union http request handler in this frame
@@ -20,13 +18,25 @@ type WebService interface {
 	ServiceAddr() string
 }
 
+// Logger defines logger interface
+type Logger interface {
+	// SetLevel
+	SetLevel(uint)
+	CheckLevel(uint) bool
+	Write(string, bool, ...interface{})
+	Debug(...interface{})
+	Trace(...interface{})
+	Warn(...interface{})
+	Error(...interface{})
+}
+
 // BuildWebServiceAndServe build a WebService object and serve immediately
 func BuildWebServiceAndServe(webAddr string,
 	handlers map[string]RequestHandlerFunc,
 	statics map[string]string,
 	readTimeout, writeTimeout time.Duration,
 	authMap map[string]map[string]int,
-	logger logging.Logger,
+	logger Logger,
 	tlsCertAndKey ...string) WebService {
 	service := &webService{}
 
