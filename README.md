@@ -1,6 +1,6 @@
 # webservice
 
-simple web service framework by golang
+Simple web service framework for golang.
 
 ## License
 
