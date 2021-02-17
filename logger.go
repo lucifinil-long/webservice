@@ -81,7 +81,7 @@ func (l logger) Debug(args ...interface{}) {
 }
 
 func (l logger) Trace(args ...interface{}) {
-	if l.CheckLevel(logLevelDebug) {
+	if l.CheckLevel(logLevelTrace) {
 		logs := addFuncNameTologs(args)
 		contents := format("trace", false, "", logs...)
 		fmt.Println(contents)
